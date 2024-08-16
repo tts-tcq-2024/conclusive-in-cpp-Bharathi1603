@@ -2,21 +2,32 @@
 
 #include <iostream>
 #include <memory>
+#include <map>
+#include <functional>
 
 #include "CoolingStrategy.h"
 #include "BreachType.h"
-
-
+#include "CoolingTypes.h"
 class TemperatureClassifier 
 {
 private:
     std::unique_ptr<CoolingStrategy> strategy;
+    
     BreachType inferBreach(double value, double lowerLimit, double upperLimit) const;
     
-public:
-    TemperatureClassifier(std::unique_ptr<CoolingStrategy> strategy);
+    const std::map<CoolingType, std::function<std::unique_ptr<CoolingStrategy>()>> coolingStrategies = 
+    {
+        { CoolingType::PASSIVE, []() { return std::make_unique<PassiveCooling>(); } },
+        { CoolingType::HI_ACTIVE, []() { return std::make_unique<HiActiveCooling>(); } },
+        { CoolingType::MED_ACTIVE, []() { return std::make_unique<MedActiveCooling>(); } },
+    };
+
+    std::unique_ptr<CoolingStrategy> createCoolingStrategy(const CoolingType coolingType);
     
-    void setStrategy(std::unique_ptr<CoolingStrategy> strategy);
+public:
+    TemperatureClassifier(const CoolingType coolingType);
+    
+    void setCoolingType(const CoolingType coolingType);
     
     BreachType getBreachType(double temperatureInC) const;
 };
