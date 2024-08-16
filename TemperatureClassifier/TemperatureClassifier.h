@@ -5,9 +5,10 @@
 #include <map>
 #include <functional>
 
-#include "CoolingStrategy.h"
+#include "CoolingSystem/CoolingStrategy.h"
+#include "CoolingSystem/CoolingTypes.h"
 #include "BreachType.h"
-#include "CoolingTypes.h"
+
 class TemperatureClassifier 
 {
 private:
