@@ -5,8 +5,8 @@
 #include <map>
 #include <functional>
 
-#include "CoolingSystem/CoolingStrategy.h"
-#include "CoolingSystem/CoolingTypes.h"
+#include "/CoolingSystem/CoolingStrategy.h"
+#include "/CoolingSystem/CoolingTypes.h"
 #include "BreachType.h"
 
 class TemperatureClassifier 
