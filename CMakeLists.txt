@@ -18,6 +18,7 @@ enable_testing()
 add_compile_options("--coverage")
 add_executable(
   cleancode
+  TemperatureClassifier.cpp
   typewise-alert.cpp
   typewise-alert.tests.cpp
 )
