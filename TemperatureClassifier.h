@@ -6,7 +6,7 @@
 #include <functional>
 
 #include "CoolingStrategy.h"
-#include "/CoolingSystem/CoolingTypes.h"
+#include "CoolingTypes.h"
 #include "BreachType.h"
 
 class TemperatureClassifier 
