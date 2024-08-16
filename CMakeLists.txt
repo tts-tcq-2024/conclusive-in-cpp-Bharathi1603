@@ -18,7 +18,6 @@ enable_testing()
 add_compile_options("--coverage")
 add_executable(
   cleancode
-  CoolingSystem
   typewise-alert.cpp
   typewise-alert.tests.cpp
 )
