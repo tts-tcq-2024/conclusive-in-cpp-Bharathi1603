@@ -7,9 +7,9 @@
 
 #include "CoolingStrategy.h"
 #include "CoolingTypes.h"
-#include "PassiveCooling.h
-#include "HiActiveCooling.h
-#include "MedActiveCooling.h
+#include "PassiveCooling.h"
+#include "HiActiveCooling.h"
+#include "MedActiveCooling.h"
 #include "BreachType.h"
 
 class TemperatureClassifier 
