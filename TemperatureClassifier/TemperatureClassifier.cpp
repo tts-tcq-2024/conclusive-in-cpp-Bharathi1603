@@ -1,14 +1,26 @@
 #include "TemperatureClassifier.h"
 
-TemperatureClassifier::TemperatureClassifier(std::unique_ptr<CoolingStrategy> strategy = nullptr) 
-: strategy(std::move(strategy)) 
+TemperatureClassifier::TemperatureClassifier(const CoolingType coolingType) 
 {
-    //Nothing to do
+    strategy = createCoolingStrategy(coolingType);
 }
 
-void TemperatureClassifier::setStrategy(std::unique_ptr<CoolingStrategy> strategy) 
+std::unique_ptr<CoolingStrategy> TemperatureClassifier::createCoolingStrategy(const CoolingType coolingType)
 {
-    strategy = std::move(strategy);
+    auto it = coolingStrategies.find(coolingType);
+    if (it != coolingStrategies.end()) 
+	{
+        return it->second();
+    } 
+    else 
+    {
+        throw std::invalid_argument("Unknown Cooling type");
+    }
+}
+
+void TemperatureClassifier::setCoolingType(const CoolingType coolingType)
+{
+    strategy = createCoolingStrategy(coolingType);
 }
 
 BreachType TemperatureClassifier::inferBreach(double value, double lowerLimit, double upperLimit) const 
