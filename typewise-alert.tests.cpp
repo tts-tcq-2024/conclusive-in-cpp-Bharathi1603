@@ -21,7 +21,7 @@ TEST(TypeWiseAlertTestSuite, MediumActiveCoolingBreach)
 {
     std::unique_ptr<CoolingContext> coolingObj = std::make_unique<CoolingContext>(std::make_unique<MedActiveCooling>());
     EXPECT_EQ(coolingObj->inferBreach(-1), BreachType::TOO_LOW);
-    EXPECT_EQ(coolingObj->inferBreach(31), BreachType::TOO_HIGH);
-    EXPECT_EQ(coolingObj->inferBreach(30), BreachType::NORMAL);
+    EXPECT_EQ(coolingObj->inferBreach(41), BreachType::TOO_HIGH);
+    EXPECT_EQ(coolingObj->inferBreach(40), BreachType::NORMAL);
 }
 
