@@ -49,13 +49,13 @@ BreachType CoolingContext::inferBreach(double value) const
   return strategy->inferBreach(value);
 }
 
-void ControllerAlert::report(const BreachType breachType) override
+void ControllerAlert::report(const BreachType breachType)
 {
     const unsigned short header = 0xfeed;
     std::cout << std::hex << header << " : " << static_cast<std::uint16_t>(breachType) << std::endl;
 }
 
-void EmailAlert::report(const BreachType breachType) override
+void EmailAlert::report(const BreachType breachType)
 {
     if(breachType != BreachType::NORMAL)
     {
