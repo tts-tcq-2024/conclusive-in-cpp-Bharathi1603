@@ -12,7 +12,6 @@ class CoolingStrategy
 class PassiveCooling : public CoolingStrategy
 {
     public:
-    PassiveCooling() =default;
     BreachType inferBreach(double value) const override;
 };
 
@@ -37,6 +36,53 @@ class CoolingContext
   CoolingContext(std::unique_ptr<CoolingStrategy> strategy);
   BreachType inferBreach(double value) const;  
 };
+
+#pragma once
+
+#include <map>
+#include <memory>
+#include "BreachType.h"
+
+enum class AlertTarget :std::uint8_t
+{
+    TO_CONTROLLER = 0x00,
+    TO_EMAIL =0x01
+};
+
+class AlertStrategy 
+{
+public:
+    virtual ~AlertStrategy() = default;
+    virtual void report(const BreachType breachType) = 0;
+};
+
+class ControllerAlert : public AlertStrategy 
+{
+public:
+    void report(const BreachType breachType) override;
+};
+
+class EmailAlert : public AlertStrategy 
+{
+public:
+    void report(const BreachType breachType) override;
+private:
+    const std::map<const BreachType, std::string> breachMessages =
+    {
+        {BreachType::TOO_LOW, "the temperature is too low"},
+        {BreachType::TOO_HIGH, "the temperature is too high"},
+    };
+};
+
+class Alerter
+{
+  private:
+      std::unique_ptr<AlertStrategy> strategy;
+  public:
+      Alerter(std::unique_ptr<AlertStrategy> strategy);
+      void report(const BreachType breachType);
+};
+
 
 
 // typedef enum {
