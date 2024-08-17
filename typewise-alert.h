@@ -1,19 +1,57 @@
 #pragma once
+#include <memory>
+#include "BreachType.h"
 
-typedef enum {
-  PASSIVE_COOLING,
-  HI_ACTIVE_COOLING,
-  MED_ACTIVE_COOLING
-} CoolingType;
+class CoolingStrategy
+{
+    public:
+    virtual ~CoolingStrategy()= default;
+    virtual BreachType inferBreach(double value) const = 0;
+};
 
-typedef enum {
-  NORMAL,
-  TOO_LOW,
-  TOO_HIGH
-} BreachType;
+class PassiveCooling : public CoolingStrategy
+{
+    public:
+    BreachType inferBreach(double value) const override;
+};
 
-BreachType inferBreach(double value, double lowerLimit, double upperLimit);
-BreachType classifyTemperatureBreach(CoolingType coolingType, double temperatureInC);
+class HiActiveCooling : public CoolingStrategy
+{
+    public:
+    BreachType inferBreach(double value) const override;
+};
+
+class MedActiveCooling : public CoolingStrategy
+{
+    public:
+    BreachType inferBreach(double value) const override;
+};
+
+class CoolingContext 
+{
+  private:
+  std::unique_ptr<CoolingStrategy> strategy;
+  
+  public:
+  CoolingContext(std::unique_ptr<CoolingStrategy> strategy);
+  BreachType inferBreach(double value) const;  
+};
+
+
+// typedef enum {
+//   PASSIVE_COOLING,
+//   HI_ACTIVE_COOLING,
+//   MED_ACTIVE_COOLING
+// } CoolingType;
+
+// typedef enum {
+//   NORMAL,
+//   TOO_LOW,
+//   TOO_HIGH
+// } BreachType;
+
+// BreachType inferBreach(double value, double lowerLimit, double upperLimit);
+// BreachType classifyTemperatureBreach(CoolingType coolingType, double temperatureInC);
 
 typedef enum {
   TO_CONTROLLER,
