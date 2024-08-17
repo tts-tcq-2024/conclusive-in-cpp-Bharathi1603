@@ -1,6 +1,46 @@
 #include "typewise-alert.h"
 #include <stdio.h>
 
+BreachType PassiveCooling::inferBreach(double value) const
+{
+    if (value < 0.0) 
+    {
+        return BreachType::TOO_LOW;
+    }
+    else if (value > 35.0) 
+    {
+        return BreachType::TOO_HIGH;
+    }
+    return BreachType::NORMAL; 
+}
+
+BreachType HiActiveCooling::inferBreach(double value) const
+{
+    if (value < 0.0) 
+    {
+        return BreachType::TOO_LOW;
+    }
+    else if (value > 45.0) 
+    {
+        return BreachType::TOO_HIGH;
+    }
+    return BreachType::NORMAL; 
+}
+
+BreachType MedActiveCooling::inferBreach(double value) const
+{
+    if (value < 0.0) 
+    {
+        return BreachType::TOO_LOW;
+    }
+    else if (value > 40.0) 
+    {
+        return BreachType::TOO_HIGH;
+    }
+    return BreachType::NORMAL; 
+}
+
+
 /*
 BreachType inferBreach(double value, double lowerLimit, double upperLimit) {
   if(value < lowerLimit) {
