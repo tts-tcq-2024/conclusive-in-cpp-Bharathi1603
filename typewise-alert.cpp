@@ -40,6 +40,16 @@ BreachType MedActiveCooling::inferBreach(double value) const
     return BreachType::NORMAL; 
 }
 
+CoolingContext::CoolingContext(std::unique_ptr<CoolingStrategy> strategy)
+{
+  this->strategy = std::move(strategy);
+}
+  
+BreachType CoolingContext::inferBreach(double value) const
+{
+  return strategy->inferBreach(value);
+}
+
 
 /*
 BreachType inferBreach(double value, double lowerLimit, double upperLimit) {
