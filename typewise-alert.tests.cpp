@@ -25,3 +25,16 @@ TEST(TypeWiseAlertTestSuite, MediumActiveCoolingBreach)
     EXPECT_EQ(coolingObj->inferBreach(40), BreachType::NORMAL);
 }
 
+TEST(TypeWiseAlertTestSuite, ControllerAlert) 
+{
+    std::unique_ptr<CoolingContext> coolingObj = std::make_unique<CoolingContext>(std::make_unique<MedActiveCooling>());
+    BreachType actualBreachType = coolingObj->inferBreach(-1);
+    EXPECT_EQ(actualBreachType, BreachType::TOO_LOW);
+    std::unique_ptr<Alerter> alerter = std::make_unique<Alerter>(std::make_unique<ControllerAlert>());
+    std::cout << "Controller alert:\n";
+    alerter->report(actualBreachType);
+}
+
+
+    
+
