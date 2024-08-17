@@ -3,7 +3,6 @@
 
 BreachType PassiveCooling::inferBreach(double value) const
 {
-    std::cout << "value : " << value << '\n';
     if (value < 0.0) 
     {
         return BreachType::TOO_LOW;
