@@ -1,5 +1,6 @@
 #pragma once
 #include <memory>
+#include <map>
 #include "BreachType.h"
 
 class CoolingStrategy
