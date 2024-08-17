@@ -12,6 +12,7 @@ class CoolingStrategy
 class PassiveCooling : public CoolingStrategy
 {
     public:
+    PassiveCooling() =default;
     BreachType inferBreach(double value) const override;
 };
 
