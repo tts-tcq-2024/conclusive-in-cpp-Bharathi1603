@@ -34,11 +34,20 @@ TEST(TypeWiseAlertTestSuite, ControllerAlert)
     alerter->report(actualBreachType);
 }
 
-TEST(TypeWiseAlertTestSuite, EmailAlert) 
+TEST(TypeWiseAlertTestSuite, EmailAlertForHigh) 
 {
     std::unique_ptr<CoolingContext> coolingObj = std::make_unique<CoolingContext>(std::make_unique<MedActiveCooling>());
     BreachType actualBreachType = coolingObj->inferBreach(41);
     EXPECT_EQ(actualBreachType, BreachType::TOO_HIGH);
+    std::unique_ptr<Alerter> alerter = std::make_unique<Alerter>(std::make_unique<EmailAlert>());
+    alerter->report(actualBreachType);
+}
+
+TEST(TypeWiseAlertTestSuite, NoEmailAlertForNormal) 
+{
+    std::unique_ptr<CoolingContext> coolingObj = std::make_unique<CoolingContext>(std::make_unique<PassiveCooling>());
+    BreachType actualBreachType = coolingObj->inferBreach(30);
+    EXPECT_EQ(actualBreachType, BreachType::NORMAL);
     std::unique_ptr<Alerter> alerter = std::make_unique<Alerter>(std::make_unique<EmailAlert>());
     alerter->report(actualBreachType);
 }
