@@ -42,8 +42,8 @@ BreachType MedActiveCooling::inferBreach(double value) const
 }
 
 CoolingContext::CoolingContext(std::unique_ptr<CoolingStrategy> strategy)
+    : strategy(std::move(strategy))
 {
-  this->strategy = std::move(strategy);
 }
   
 BreachType CoolingContext::inferBreach(double value) const
